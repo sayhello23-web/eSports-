@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ludo Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ══ SETUP SCREEN ══════════════════════════════════ -->
+  <div id="screen-setup" class="screen active">
+    <div class="setup-center">
+      <div class="setup-icon">🎲</div>
+      <h1 class="logo">LUDO</h1>
+      <p class="logo-sub">CLASSIC BOARD GAME</p>
+
+      <div class="card">
+        <div class="label">NUMBER OF PLAYERS</div>
+        <div class="num-select" id="num-select">
+          <button class="num-btn" data-n="2">2</button>
+          <button class="num-btn" data-n="3">3</button>
+          <button class="num-btn active" data-n="4">4</button>
+        </div>
+
+        <div id="player-inputs"></div>
+
+        <div class="setup-actions">
+          <button class="btn-gold" id="btn-local">▶ LOCAL PLAY</button>
+          <button class="btn-ghost-cyan" id="btn-online">🌐 ONLINE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LOBBY SCREEN ═════════════════════════════════ -->
+  <div id="screen-lobby" class="screen">
+    <div class="lobby-header">
+      <button class="btn-back" id="lobby-back">← Back</button>
+      <span class="lobby-title">🌐 ONLINE LOBBY</span>
+    </div>
+
+    <div class="card mb12">
+      <div class="label">CREATE ROOM</div>
+      <div class="row-input">
+        <input id="room-name-input" class="inp" placeholder="Room name..." />
+        <button class="btn-gold-sm" id="btn-create">+ Create</button>
+      </div>
+    </div>
+
+    <div class="card mb12">
+      <div class="label">JOIN ROOM</div>
+      <div class="row-input">
+        <input id="join-id-input" class="inp mono" placeholder="Room ID..." />
+        <button class="btn-cyan-sm" id="btn-join">→ Join</button>
+      </div>
+      <div id="join-err" class="err-msg"></div>
+    </div>
+
+    <div class="card">
+      <div class="label">ROOMS (<span id="room-count">0</span>)</div>
+      <div id="room-list"><p class="empty-msg">No rooms yet.</p></div>
+    </div>
+  </div>
+
+  <!-- ══ GAME SCREEN ══════════════════════════════════ -->
+  <div id="screen-game" class="screen">
+
+    <!-- Top Bar -->
+    <div id="top-bar">
+      <button class="btn-back" id="btn-leave">← Setup</button>
+      <span class="game-logo">🎲 LUDO</span>
+      <span id="room-badge" class="room-badge hidden"></span>
+      <div class="spacer"></div>
+      <span id="turn-badge" class="turn-badge"></span>
+      <button class="btn-new" id="btn-new">↺ New</button>
+    </div>
+
+    <!-- Player Tabs -->
+    <div id="player-tabs"></div>
+
+    <!-- Board + Dice -->
+    <div id="board-row">
+      <div id="board-wrap">
+        <canvas id="board-canvas"></canvas>
+      </div>
+      <div id="dice-panel">
+        <div class="dice-box" id="dice-box">
+          <div class="label" style="margin-bottom:3px">DICE</div>
+          <div id="dice-face">🎲</div>
+          <div id="dice-hint" class="dice-hint"></div>
+          <button id="btn-roll" class="btn-roll">ROLL</button>
+        </div>
+        <div id="room-id-box" class="room-id-box hidden">
+          <div class="label">ROOM</div>
+          <div id="room-id-display" class="mono room-id-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules + Log -->
+    <div id="bottom-row">
+      <div id="rules-box">
+        <div class="label">RULES</div>
+        <div class="rule-item">🎲 Roll 6 to enter</div>
+        <div class="rule-item">⭐ Stars = safe</div>
+        <div class="rule-item">💥 Land = capture</div>
+        <div class="rule-item">🎲 6 = extra roll</div>
+        <div class="rule-item">🏆 4 home = win</div>
+      </div>
+      <div id="log-box">
+        <div class="label">GAME LOG</div>
+        <div id="log-list"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ WIN OVERLAY ══════════════════════════════════ -->
+  <div id="win-overlay" class="hidden">
+    <div id="win-card">
+      <div style="font-size:52px;margin-bottom:8px">🏆</div>
+      <div id="win-name" class="win-name"></div>
+      <div class="win-sub">All 4 tokens reached home!</div>
+      <div class="win-actions">
+        <button id="btn-again" class="btn-gold">Play Again</button>
+        <button id="btn-setup" class="btn-ghost">Setup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
